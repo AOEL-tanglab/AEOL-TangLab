@@ -97,7 +97,7 @@
                         <a class="nav-link me-lg-3" href="#publications">PUBLICATIONS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="#OPPORTUNITY">OPPORTUNITY</a>
+                        <a class="nav-link me-lg-3" href="#opportunity">OPPORTUNITY</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link me-lg-3" href="#team">TEAM</a>
@@ -151,7 +151,7 @@
     <!-- Publications  -->
 
     <!-- Opportunity -->
-    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="opportunity ">
+    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="opportunity">
         <div class="container px-5">
             <header>
                 <h2 id="opportunity-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;OPPORTUNITY </h2>
@@ -186,6 +186,43 @@
         </div>
     </footer>
 
-</body>
+    <script>
+        // Function to load and render markdown files
+        function loadMarkdownFile(filePath, elementId) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    const html = marked.parse(markdown);
+                    document.getElementById(elementId).innerHTML = html;
+                    
+                    // Render MathJax after content is loaded
+                    if (typeof MathJax !== 'undefined') {
+                        MathJax.typesetPromise();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading markdown file:', error);
+                    document.getElementById(elementId).innerHTML = `<p>Error loading content: ${error.message}</p>`;
+                });
+        }
 
+        // Load markdown files when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load opportunity.md
+            loadMarkdownFile('content/opportunity.md', 'opportunity-md');
+            
+            // Load team.md
+            loadMarkdownFile('content/team.md', 'team-md');
+            
+            // You can add more markdown files here as needed
+            // loadMarkdownFile('content/home.md', 'home-md');
+            // loadMarkdownFile('content/publications.md', 'publications-md');
+        });
+    </script>
+</body>
 </html>
