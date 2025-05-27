@@ -45,11 +45,11 @@
                 packages: {},              // extensions to use
                 inlineMath: [              // start/end delimiter pairs for in-line math
                     ['$', '$'],
-                    ['\$', '\$']
+                    ['\\(', '\\)']
                 ],
                 displayMath: [             // start/end delimiter pairs for display math
                     ['$$', '$$'],
-                    ['\$$', '\$$']
+                    ['\\[', '\\]']
                 ],
                 processEscapes: false,      // use \$ to produce a literal dollar sign
                 processEnvironments: true, // process \begin{xxx}...\end{xxx} outside math mode
@@ -186,31 +186,43 @@
         </div>
     </footer>
 
-    <!-- Load Markdown Contents -->
     <script>
-        // Function to load markdown contents
-        function loadMarkdownContent(elementId, filePath) {
+        // Function to load and render markdown files
+        function loadMarkdownFile(filePath, elementId) {
             fetch(filePath)
-                .then(response => response.text())
-                .then(text => {
-                    document.getElementById(elementId).innerHTML = marked.parse(text);
-                    // Re-render MathJax after content is loaded
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    const html = marked.parse(markdown);
+                    document.getElementById(elementId).innerHTML = html;
+                    
+                    // Render MathJax after content is loaded
                     if (typeof MathJax !== 'undefined') {
                         MathJax.typesetPromise();
                     }
                 })
-                .catch(error => console.error('Error loading markdown:', error));
+                .catch(error => {
+                    console.error('Error loading markdown file:', error);
+                    document.getElementById(elementId).innerHTML = `<p>Error loading content: ${error.message}</p>`;
+                });
         }
 
-        // Load content for each section
+        // Load markdown files when the page loads
         document.addEventListener('DOMContentLoaded', function() {
-            loadMarkdownContent('home-md', 'contents/home.md');
-            loadMarkdownContent('publications-md', 'contents/publications.md');
-            loadMarkdownContent('opportunity-md', 'contents/opportunity.md');
-            loadMarkdownContent('team-md', 'contents/team.md');
+            // Load opportunity.md
+            loadMarkdownFile('content/opportunity.md', 'opportunity-md');
+            
+            // Load team.md
+            loadMarkdownFile('content/team.md', 'team-md');
+            
+            // You can add more markdown files here as needed
+            // loadMarkdownFile('content/home.md', 'home-md');
+            // loadMarkdownFile('content/publications.md', 'publications-md');
         });
     </script>
-
 </body>
-
 </html>
