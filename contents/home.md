@@ -1,16 +1,14 @@
 
 
-[![senli1073](https://img.shields.io/badge/senli1073-github-blue?logo=github)](https://github.com/senli1073)
 
-He is currently pursuing a Master's Degree in Computer Science, at School of Computer Science and Technology, China University of Mining and Technology, China.
+Assistant Professor, Department of Chemical and Biological Engineering
+The Hong Kong University of Science and Technology
 
 #### Email
-sli[at]cumt.edu.cn
+cindytang@ust.hk
 
-#### Education
-M.E., Computer Science and Technology, China University of Mining and Technology, 2022—2025 (expected).\
-B.E., Data Science and Big Data Technology, China University of Mining and Technology, 2018—2022.
+#### Background
+Dr. Cindy G. Tang (董冠妤) received her PhD degree from the Department of Physics and her bachelor’s degree in Engineering Science at the National University of Singapore (NUS). She received the best PhD thesis award in Natural Sciences at NUS and was a recipient of the Presidential Postdoctoral Fellowship at Nanyang Technological University (NTU). She has published her research as in several high-impact journals including Nature, Nature Communications, Advanced Materials, Advanced Science, ACS Nano, Materials Horizon, etc.
 
 #### Research Interests
-Deep Learning, Artificial Intelligence Seismology, Mine Microseismic.
-
+Our research interests lie in developing new materials for high performance organic electronics. We aim to demonstrate novel and practical applications towards the advancement of organic electronics for next generation devices, particularly in the area of flexible sensors and electronics.  We are interested in the design and fundamental understanding of electronic, optoelectronic, mechanical and other properties of electronically and ionically active functional emerging materials. By employing a combination of experimental and theoretical techniques, we aim to uncover and comprehend fundamental phenomena that drive both scientific advancements and technological breakthroughs.
