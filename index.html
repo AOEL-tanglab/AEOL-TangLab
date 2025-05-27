@@ -75,6 +75,34 @@
     <script type="text/javascript" src="static/js/scripts.js"></script>
     <script type="text/javascript" src="static/js/js-yaml.min.js"></script>
 
+    <!-- 添加加载Markdown文件的脚本 -->
+    <script>
+        // 加载并渲染Markdown文件的函数
+        function loadMarkdownFile(filePath, elementId) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById(elementId).innerHTML = marked.parse(text);
+                    // 重新渲染MathJax
+                    if (typeof MathJax !== 'undefined') {
+                        MathJax.typesetPromise();
+                    }
+                })
+                .catch(error => console.error('Error loading markdown file:', error));
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 加载各个Markdown文件
+            loadMarkdownFile('contents/opportunity.md', 'opportunity-md');
+            loadMarkdownFile('contents/team.md', 'team-md');
+            
+            // 可以根据需要加载其他Markdown文件
+            // loadMarkdownFile('contents/home.md', 'home-md');
+            // loadMarkdownFile('contents/publications.md', 'publications-md');
+        });
+    </script>
+
 </head>
 
 <body id="page-top">
@@ -186,43 +214,6 @@
         </div>
     </footer>
 
-    <script>
-        // Function to load and render markdown files
-        function loadMarkdownFile(filePath, elementId) {
-            fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(markdown => {
-                    const html = marked.parse(markdown);
-                    document.getElementById(elementId).innerHTML = html;
-                    
-                    // Render MathJax after content is loaded
-                    if (typeof MathJax !== 'undefined') {
-                        MathJax.typesetPromise();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading markdown file:', error);
-                    document.getElementById(elementId).innerHTML = `<p>Error loading content: ${error.message}</p>`;
-                });
-        }
-
-        // Load markdown files when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load opportunity.md
-            loadMarkdownFile('content/opportunity.md', 'opportunity-md');
-            
-            // Load team.md
-            loadMarkdownFile('content/team.md', 'team-md');
-            
-            // You can add more markdown files here as needed
-            // loadMarkdownFile('content/home.md', 'home-md');
-            // loadMarkdownFile('content/publications.md', 'publications-md');
-        });
-    </script>
 </body>
+
 </html>
